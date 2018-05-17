@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {% if page.category %}
+            <div class="text-center">
+                <h2 class="text-muted">Incident report for {{ page.category }}</h2>
+            </div>
+            <br>
+        {% endif %}
+        <h6>{{ page.date | date: '%B %d, %Y' }}</h6>
+        {% assign date = page.date | date: '%Y-%m-%d' %}
+        {% for post in site.posts %}
+            {% assign ndate = post.date | date: '%Y-%m-%d' %}
+            {% if date == ndate and page.category == post.category %}
+                <div class="row small">
+                    <time class="col-md-2 text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%H:%M" }} {{ site.zone }}</time>
+                    <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content }}</strong>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% include card_footer.html %}
