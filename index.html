@@ -1,0 +1,151 @@
+---
+layout: default
+---
+
+{% comment %}
+<!--
+#
+# Variable now.
+#
+-->
+{% endcomment %}
+{% capture datenow %}{{ 'now' | date: '%s' }}{% endcapture %}
+
+{% comment %}
+<!--
+#
+# timestamp variables.
+#
+-->
+{% endcomment %}
+{% capture time1 %}{{ 86400 }}{% endcapture %}
+{% capture time2 %}{{ 86400 | times: 2 }}{% endcapture %}
+{% capture time3 %}{{ 86400 | times: 3 }}{% endcapture %}
+{% capture time4 %}{{ 86400 | times: 4 }}{% endcapture %}
+{% capture time5 %}{{ 86400 | times: 5 }}{% endcapture %}
+{% capture time6 %}{{ 86400 | times: 6 }}{% endcapture %}
+
+{% comment %}
+<!--
+#
+# Variable week.
+#
+-->
+{% endcomment %}
+{% capture dateweek1 %}{{ datenow }}{% endcapture %}
+{% capture dateweek2 %}{{ datenow | minus: time1 }}{% endcapture %}
+{% capture dateweek3 %}{{ datenow | minus: time2 }}{% endcapture %}
+{% capture dateweek4 %}{{ datenow | minus: time3 }}{% endcapture %}
+{% capture dateweek5 %}{{ datenow | minus: time4 }}{% endcapture %}
+{% capture dateweek6 %}{{ datenow | minus: time5 }}{% endcapture %}
+{% capture dateweek7 %}{{ datenow | minus: time6 }}{% endcapture %}
+
+{% comment %}
+<!--
+#
+# Variable days.
+#
+-->
+{% endcomment %}
+{% capture dateday1 %}{{ dateweek1 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday2 %}{{ dateweek2 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday3 %}{{ dateweek3 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday4 %}{{ dateweek4 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday5 %}{{ dateweek5 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday6 %}{{ dateweek6 | date: '%B %d, %Y' }}{% endcapture %}
+{% capture dateday7 %}{{ dateweek7 | date: '%B %d, %Y' }}{% endcapture %}
+
+{% comment %}
+<!--
+#
+# Create array
+#
+-->
+{% endcomment %}
+{% capture datecarray %}{{ dateday1 }}- {{ dateday2 }}- {{ dateday3 }}- {{ dateday4 }}- {{ dateday5 }}- {{ dateday6}}- {{ dateday7 }}{% endcapture %}
+{% assign datearray = datecarray | split: '- ' %}
+
+{% for my_page in site.pages %}
+    {% if my_page.title and my_page.url != '/history/' %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <table class="table" id="{{ my_page.title | slugify }}" style="overflow: hidden;">
+                        <thead>
+                            <tr>
+                                <td style="border-top: 0px;">
+                                    <h5>
+                                        {{ my_page.title }}
+                                        <a href="#{{ my_page.title | slugify }}">
+                                            <i class="fas fa-hashtag fa-sm fa-fw"></i>
+                                        </a>
+                                    </h5>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ my_page.content }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table" id="past-incidents" style="overflow: hidden;">
+                <thead>
+                    <tr>
+                        <td style="border-top: 0px;">
+                            <h5>
+                                Past Incidents
+                                <a href="#past-incidents">
+                                    <i class="fas fa-hashtag fa-sm fa-fw"></i>
+                                </a>
+                                <a href="{{ '/feed.xml' | absolute_url }}" class="float-right text-muted" data-toggle="tooltip" title="Subscribe via RSS">
+                                    <i class="fas fa-rss fa-xs fa-fw"></i>
+                                </a>
+                            </h5>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in datearray %}
+                        {% assign isincident = false %}
+                        <tr>
+                            <td>
+                                <h6>{{ item }}</h6>
+                                {% for post in site.posts %}
+                                    {% assign date33 = post.date | date: '%B %d, %Y' %}
+                                    {% if item == date33 %}
+                                        <div class="row small">
+                                            <time class="col-md-2 text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%H:%M' }} {{ site.zone }}</time>
+                                            <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content }}</strong>
+                                        </div>
+                                        {% assign isincident = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if isincident == false %}
+                                    <div class="row small">
+                                        <time class="col-md-2 text-muted" datetime="{{ item | date: '%Y-%m-%d' }}T00:00:00-03:00">00:00 {{ site.zone }}</time>
+                                        <strong class="col-md-10 text-success">All systems normal.</strong>
+                                    </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="https://twitter.com/{{ site.twitter }}?ref_src=twsrc%5Etfw">Tweets by {{ site.twitter }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+</div>
+{% include card_footer.html %}
