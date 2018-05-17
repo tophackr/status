@@ -1,0 +1,16 @@
+# Site settings
+title: tophackr status
+description: Information on the status of tophackr services.
+url: 'https://status.tophackr.com' # the base hostname & protocol for your site
+repository: 'https://gitlab.com/tophackr/status'
+email: tophackr@icloud.com
+twitter: tophackrstatus
+zone: 'UTC+3'
+
+# Build settings
+markdown: kramdown
+timezone: Europe/Moscow
+encoding: utf-8
+permalink: /incidents/:title/
+# limit_posts: 10
+exclude: [".gitignore", Gemfile, Gemfile.lock]
