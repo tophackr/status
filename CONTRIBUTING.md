@@ -13,9 +13,8 @@ email: admin@example.com
 twitter: examplestatus
 ```
 
-and you need to change `zone` to your timezone, and `timezone`. A list of all available values can be found [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+and you need to change `timezone` to your timezone. A list of all available values can be found [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 ```
-zone: 'UTC+3' # example
 timezone: Europe/Moscow # example
 ```
 

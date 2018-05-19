@@ -5,7 +5,6 @@ url: 'https://status.tophackr.com' # the base hostname & protocol for your site
 repository: 'https://gitlab.com/tophackr/status'
 email: tophackr@icloud.com
 twitter: tophackrstatus
-zone: 'UTC+3'
 
 # Build settings
 markdown: kramdown
