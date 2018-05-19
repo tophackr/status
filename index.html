@@ -70,22 +70,19 @@ layout: default
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="table-responsive">
-                    <table class="table" id="{{ my_page.title | slugify }}" style="overflow: hidden;">
+                    <table class="table" style="overflow: hidden;">
                         <thead>
                             <tr>
                                 <td style="border-top: 0px;">
-                                    <h5>
-                                        {{ my_page.title }}
-                                        <a href="#{{ my_page.title | slugify }}">
-                                            <i class="fas fa-hashtag fa-sm fa-fw"></i>
-                                        </a>
-                                    </h5>
+                                    <h5>{{ my_page.title }}</h5>
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ my_page.content }}</td>
+                                <td class="small text-muted">
+                                    <strong>{{ my_page.content }}</strong>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -97,15 +94,12 @@ layout: default
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="table-responsive">
-            <table class="table" id="past-incidents" style="overflow: hidden;">
+            <table class="table" style="overflow: hidden;">
                 <thead>
                     <tr>
                         <td style="border-top: 0px;">
                             <h5>
                                 Past Incidents
-                                <a href="#past-incidents">
-                                    <i class="fas fa-hashtag fa-sm fa-fw"></i>
-                                </a>
                                 <a href="{{ '/feed.xml' | absolute_url }}" class="float-right text-muted" data-toggle="tooltip" title="Subscribe via RSS">
                                     <i class="fas fa-rss fa-xs fa-fw"></i>
                                 </a>
@@ -122,16 +116,16 @@ layout: default
                                 {% for post in site.posts %}
                                     {% assign date33 = post.date | date: '%B %d, %Y' %}
                                     {% if item == date33 %}
-                                        <div class="row small">
-                                            <time class="col-md-2 text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%H:%M' }} {{ site.zone }}</time>
-                                            <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content }}</strong>
-                                        </div>
                                         {% assign isincident = true %}
+                                        <div class="row small">
+                                            <time class="col-md-2 text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
+                                            <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content | remove: '<p>' | remove: '</p>' }}</strong>
+                                        </div>
                                     {% endif %}
                                 {% endfor %}
                                 {% if isincident == false %}
                                     <div class="row small">
-                                        <time class="col-md-2 text-muted" datetime="{{ item | date: '%Y-%m-%d' }}T00:00:00-03:00">00:00 {{ site.zone }}</time>
+                                        <time class="col-md-2 text-muted" datetime="{{ item | date_to_xmlschema }}">{{ item | date: '%R %z' | slice: 0, 9 }}</time>
                                         <strong class="col-md-10 text-success">All systems normal.</strong>
                                     </div>
                                 {% endif %}
@@ -145,7 +139,7 @@ layout: default
 </div>
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="https://twitter.com/{{ site.twitter }}?ref_src=twsrc%5Etfw">Tweets by {{ site.twitter }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="{{ site.twitter | prepend: 'https://twitter.com/' | append: '?ref_src=twsrc%5Etfw' }}">Tweets by {{ site.twitter }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 </div>
 {% include card_footer.html %}
