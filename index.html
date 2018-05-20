@@ -118,14 +118,14 @@ layout: default
                                     {% if item == date33 %}
                                         {% assign isincident = true %}
                                         <div class="row small">
-                                            <time class="col-md-2 text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
+                                            <time class="col-md-2 text-monospace text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
                                             <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content | remove: '<p>' | remove: '</p>' }}</strong>
                                         </div>
                                     {% endif %}
                                 {% endfor %}
                                 {% if isincident == false %}
                                     <div class="row small">
-                                        <time class="col-md-2 text-muted" datetime="{{ item | date_to_xmlschema }}">{{ item | date: '%R %z' | slice: 0, 9 }}</time>
+                                        <time class="col-md-2 text-monospace text-muted" datetime="{{ item | date_to_xmlschema }}">{{ item | date: '%R %z' | slice: 0, 9 }}</time>
                                         <strong class="col-md-10 text-success">All systems normal.</strong>
                                     </div>
                                 {% endif %}
