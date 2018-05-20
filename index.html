@@ -66,9 +66,9 @@ layout: default
 {% assign datearray = datecarray | split: '- ' %}
 
 {% for my_page in site.pages %}
-    {% if my_page.title and my_page.url != '/history/' %}
+    {% if my_page.title and my_page.hide == false %}
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-{{ site.rows | default: 8 }}">
                 <div class="table-responsive">
                     <table class="table" style="overflow: hidden;">
                         <thead>
@@ -92,7 +92,7 @@ layout: default
     {% endif %}
 {% endfor %}
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-{{ site.rows | default: 8 }}">
         <div class="table-responsive">
             <table class="table" style="overflow: hidden;">
                 <thead>
@@ -114,8 +114,8 @@ layout: default
                             <td>
                                 <h6>{{ item }}</h6>
                                 {% for post in site.posts %}
-                                    {% assign date33 = post.date | date: '%B %d, %Y' %}
-                                    {% if item == date33 %}
+                                    {% assign postdate = post.date | date: '%B %d, %Y' %}
+                                    {% if item == postdate %}
                                         {% assign isincident = true %}
                                         <div class="row small">
                                             <time class="col-md-2 text-monospace text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
@@ -137,9 +137,11 @@ layout: default
         </div>
     </div>
 </div>
+{% if site.twitter.widget == true %}
 <div class="row justify-content-center">
-    <div class="col-md-8">
-        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="{{ site.twitter | prepend: 'https://twitter.com/' | append: '?ref_src=twsrc%5Etfw' }}">Tweets by {{ site.twitter }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="col-md-{{ site.rows | default: 8 }}">
+        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="{{ site.twitter.username | prepend: 'https://twitter.com/' | append: '?ref_src=twsrc%5Etfw' }}">Tweets by {{ site.twitter.username }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 </div>
+{% endif %}
 {% include card_footer.html %}
