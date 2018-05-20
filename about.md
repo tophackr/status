@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+hide: false
 ---
 
 This site is for information on the status of tophackr services.
@@ -11,4 +12,4 @@ If you are in doubt about the status of the site, you can check on [this][uptime
 [uptime]: https://www.uptrends.com/tools/uptime
 [issues]: {{ site.repository }}/issues
 [email]: mailto:{{ site.email }}
-[twitter]: https://twitter.com/{{ site.twitter }}
+[twitter]: https://twitter.com/{{ site.twitter.username }}
