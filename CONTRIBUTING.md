@@ -6,11 +6,14 @@ In config ([_config.yml]) you need to change this line to your own.
 ```
 title: example status
 description: example description to site
-baseurl: '/status' # if you want to connect your own domain to the status of the quotation marks leave blank or remove this line.
 url: 'https://example.com'
+baseurl: '/status' # if you want to connect your own domain to the status of the quotation marks leave blank or remove this line.
 repository: 'https://example.gitlab.com/example-name/example-project'
 email: admin@example.com
-twitter: examplestatus
+twitter:
+  username: examplestatus
+  widget: true
+rows: 10 # example, default 8
 ```
 
 and you need to change `timezone` to your timezone. A list of all available values can be found [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
