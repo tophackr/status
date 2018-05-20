@@ -2,10 +2,10 @@
 <br><br>
 <footer class="container font-weight-light">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-{{ site.rows | default: 8 }}">
             {% assign email_body = 'You report' | url_encode %}
             {% assign email_subject = 'Report' %}
-            {% assign twitter_body = site.twitter | prepend: '@' | append: ' You report' | url_encode %}
+            {% assign twitter_body = site.twitter.username | prepend: '@' | append: ' You report' | url_encode %}
             <ul class="float-left list-inline">
                 <a href="{{ site.email | prepend: 'mailto:' | append: '?subject=' | append: email_subject | append: '&body=' | append: email_body }}" class="list-inline-item">Report on Email</a>
                 <a href="{{ 'https://twitter.com/intent/tweet?text=' | append: twitter_body }}" class="list-inline-item">Report on Twitter</a>
