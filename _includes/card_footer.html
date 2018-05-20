@@ -1,10 +1,10 @@
 
 <br>
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-{{ site.rows | default: 8 }}">
         <div class="card">
             <div class="card-body">
-                <a href="{% if page.layout == 'default' %}{{ '/history/' | absolute_url }}{% else %}{{ site.url }}{% endif %}" class="float-left small text-muted">
+                <a href="{% if page.layout == 'default' %}{{ '/history/' | absolute_url }}{% else %}{{ '/' | absolute_url }}{% endif %}" class="float-left small text-muted">
                     <i class="fas fa-long-arrow-alt-left"></i>
                     &nbsp;{% if page.layout == 'post' or page.url == '/history/' %}Current Status{% elsif page.layout == 'default' %}Incidents history{% else %}Back to home{% endif %}
                 </a>
