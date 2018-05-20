@@ -3,19 +3,23 @@
 {% assign dateago2 = site.posts[0].date | date: '%s' %}
 {% assign dateago3 = dateago1 | minus: dateago2 %}
 {% assign dateago4 = dateago3 | divided_by: 86400 %}
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href=" {{ '/' | absolute_url }}">{{ site.title }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#tophackr-navbar" aria-controls="tophackr-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="tophackr-navbar">
-            <span class="mr-auto"></span>
+{% capture dateago5 %}
+    Last incident
+    {% case dateago4 %}
+        {% when 0 %}today
+        {% when 1 %}{{ dateago4 }} day ago
+        {% else %}{{ dateago4 }} days ago
+    {% endcase %}
+{% endcapture %}
+<div class="container">
+    <div class="row justify-content-center">
+        <nav class="navbar col-md-8">
+            <a class="navbar-brand text-dark" href=" {{ '/' | absolute_url }}">{{ site.title }}</a>
             {% if site.posts[0] %}
-            <span class="nav-item navbar-text">
-                <strong class="float-right text-muted text-uppercase">Last incident {% case dateago4 %}{% when 0 %}today{% when 1 %}{{ dateago4 }} day ago{% else %}{{ dateago4 }} days ago{% endcase %}</strong>
-            </span>
+                <br class="d-lg-none d-xl-none">
+                <strong class="text-muted text-uppercase d-lg-none d-xl-none" data-toggle="tooltip" title="{{ dateago2 | date_to_xmlschema }}" style="cursor: help;">{{ dateago5 }}</strong>
+                <strong class="navbar-text text-muted text-uppercase float-right d-none d-lg-block d-xl-block" data-toggle="tooltip" title="{{ dateago2 | date_to_xmlschema }}" style="cursor: help;">{{ dateago5 }}</strong>
             {% endif %}
-        </div>
+        </nav>
     </div>
-</nav>
+</div>
