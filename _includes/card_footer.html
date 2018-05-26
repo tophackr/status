@@ -1,18 +1,19 @@
 
-<br>
 <div class="row justify-content-center">
     <div class="col-md-{{ site.rows | default: 8 }}">
         <div class="card">
-            <div class="card-body">
-                <a href="{% if page.layout == 'default' %}{{ '/history/' | absolute_url }}{% else %}{{ '/' | absolute_url }}{% endif %}" class="float-left small text-muted">
-                    <i class="fas fa-long-arrow-alt-left"></i>
-                    &nbsp;{% if page.layout == 'post' or page.url == '/history/' %}Current Status{% elsif page.layout == 'default' %}Incidents history{% else %}Back to home{% endif %}
-                </a>
-                <a href="{{ '/edit/master/' | prepend: site.repository | append: page.path }}" class="float-right small text-muted">
-                    <i class="fas fa-code-branch"></i>
-                    &nbsp;Edit on GitLab
-                </a>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{% if page.layout == 'default' %}{{ '/incidents/' | absolute_url }}{% else %}{{ '/' | absolute_url }}{% endif %}" class="float-left small text-muted">
+                        <i class="fas fa-long-arrow-alt-left"></i>
+                        &nbsp;{%- if page.layout == 'post' or page.url == '/incidents/' -%}Current Status{%- elsif page.layout == 'default' -%}Incidents history{%- else -%}Back to home{%- endif -%}
+                    </a>
+                    <a href="{{ '/edit/master/' | prepend: site.repository | append: page.path }}" class="float-right small text-muted">
+                        <i class="fas fa-code-branch"></i>
+                        &nbsp;Edit on GitLab
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
