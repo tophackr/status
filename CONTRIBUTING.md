@@ -6,12 +6,18 @@ In config ([_config.yml]) you need to change this line to your own.
 ```
 title: example status
 description: example description to site
-url: 'https://example.com'
 baseurl: '/status' # if you want to connect your own domain to the status of the quotation marks leave blank or remove this line.
+url: 'https://example.com'
 repository: 'https://example.gitlab.com/example-name/example-project'
-email: admin@example.com
+email:
+  to: admin@example.com
+  subject: Report
+  body: You report
+  footer_name: Report on Email
 twitter:
   username: examplestatus
+  body: You report
+  footer_name: Report on Twitter
   widget: true
 rows: 10 # example, default 8
 ```
@@ -24,7 +30,6 @@ timezone: Europe/Moscow # example
 ## How to create incident
 
 There are 3 types of incident [danger], [warning], [success].  
-You can use these drafts as you want, just note that the history displays danger incident.  
 Posts need to be created in the folder [_posts]
 
 ## Schedules
