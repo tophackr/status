@@ -1,0 +1,30 @@
+---
+layout: page
+title: Incidents History
+permalink: /incidents/
+hide: true
+---
+
+{%- for post in site.posts -%}
+    {%- unless post.next -%}
+        <tr id="{{ post.date | date: '%F' }}">
+            <td>
+                <h6 class="text-primary">{{ post.date | date: '%B %d, %Y' }}</h6>
+    {%- else -%}
+        {%- assign date = post.date | date: '%B %d, %Y' -%}
+        {%- assign ndate = post.next.date | date: '%B %d, %Y' -%}
+        {%- if date != ndate -%}
+            </td>
+        </tr>
+        <tr id="{{ post.date | date: '%F' }}">
+            <td>
+                <h6 class="text-primary">{{ post.date | date: '%B %d, %Y' }}</h6>
+        {%- endif -%}
+    {%- endunless -%}
+    <div class="row small">
+        <time class="col-md-2 text-monospace text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
+        <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content | remove: '<p>' | remove: '</p>' }}</strong>
+    </div>
+{%- endfor -%}
+    </td>
+</tr>
