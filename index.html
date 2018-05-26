@@ -2,71 +2,8 @@
 layout: default
 ---
 
-{% comment %}
-<!--
-#
-# Variable now.
-#
--->
-{% endcomment %}
-{% capture datenow %}{{ 'now' | date: '%s' }}{% endcapture %}
-
-{% comment %}
-<!--
-#
-# timestamp variables.
-#
--->
-{% endcomment %}
-{% capture time1 %}{{ 86400 }}{% endcapture %}
-{% capture time2 %}{{ 86400 | times: 2 }}{% endcapture %}
-{% capture time3 %}{{ 86400 | times: 3 }}{% endcapture %}
-{% capture time4 %}{{ 86400 | times: 4 }}{% endcapture %}
-{% capture time5 %}{{ 86400 | times: 5 }}{% endcapture %}
-{% capture time6 %}{{ 86400 | times: 6 }}{% endcapture %}
-
-{% comment %}
-<!--
-#
-# Variable week.
-#
--->
-{% endcomment %}
-{% capture dateweek1 %}{{ datenow }}{% endcapture %}
-{% capture dateweek2 %}{{ datenow | minus: time1 }}{% endcapture %}
-{% capture dateweek3 %}{{ datenow | minus: time2 }}{% endcapture %}
-{% capture dateweek4 %}{{ datenow | minus: time3 }}{% endcapture %}
-{% capture dateweek5 %}{{ datenow | minus: time4 }}{% endcapture %}
-{% capture dateweek6 %}{{ datenow | minus: time5 }}{% endcapture %}
-{% capture dateweek7 %}{{ datenow | minus: time6 }}{% endcapture %}
-
-{% comment %}
-<!--
-#
-# Variable days.
-#
--->
-{% endcomment %}
-{% capture dateday1 %}{{ dateweek1 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday2 %}{{ dateweek2 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday3 %}{{ dateweek3 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday4 %}{{ dateweek4 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday5 %}{{ dateweek5 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday6 %}{{ dateweek6 | date: '%B %d, %Y' }}{% endcapture %}
-{% capture dateday7 %}{{ dateweek7 | date: '%B %d, %Y' }}{% endcapture %}
-
-{% comment %}
-<!--
-#
-# Create array
-#
--->
-{% endcomment %}
-{% capture datecarray %}{{ dateday1 }}- {{ dateday2 }}- {{ dateday3 }}- {{ dateday4 }}- {{ dateday5 }}- {{ dateday6}}- {{ dateday7 }}{% endcapture %}
-{% assign datearray = datecarray | split: '- ' %}
-
-{% for my_page in site.pages %}
-    {% if my_page.title and my_page.hide == false %}
+{%- for my_page in site.pages -%}
+    {%- if my_page.title and my_page.hide == false -%}
         <div class="row justify-content-center">
             <div class="col-md-{{ site.rows | default: 8 }}">
                 <div class="table-responsive">
@@ -89,59 +26,60 @@ layout: default
                 </div>
             </div>
         </div>
-    {% endif %}
-{% endfor %}
+    {%- endif -%}
+{%- endfor -%}
 <div class="row justify-content-center">
     <div class="col-md-{{ site.rows | default: 8 }}">
-        <div class="table-responsive">
-            <table class="table" style="overflow: hidden;">
-                <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td style="border-top: 0px;">
+                        <h5>
+                            Past Incidents
+                            <a href="{{ '/feed.xml' | absolute_url }}" class="float-right text-muted" data-toggle="tooltip" title="Subscribe via RSS">
+                                <i class="fas fa-rss fa-xs fa-fw"></i>
+                            </a>
+                        </h5>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {%- assign daten = 'now' | date: '%s' -%}
+                {%- for item in (1..7) -%}
+                    {%- assign isincident = false -%}
+                    {%- assign datevar = daten | date: '%B %d, %Y' -%}
                     <tr>
-                        <td style="border-top: 0px;">
-                            <h5>
-                                Past Incidents
-                                <a href="{{ '/feed.xml' | absolute_url }}" class="float-right text-muted" data-toggle="tooltip" title="Subscribe via RSS">
-                                    <i class="fas fa-rss fa-xs fa-fw"></i>
-                                </a>
-                            </h5>
+                        <td>
+                            <h6>{{ daten | date: '%B %d, %Y' }}</h6>
+                            {%- for post in site.posts -%}
+                                {%- assign postvar = post.date | date: '%B %d, %Y' -%}
+                                {%- if datevar == postvar -%}
+                                    {%- assign isincident = true -%}
+                                    <div class="row small">
+                                        <time class="col-md-2 text-monospace text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
+                                        <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content | remove: '<p>' | remove: '</p>' }}</strong>
+                                    </div>
+                                {%- endif -%}
+                            {%- endfor -%}
+                            {%- if isincident == false -%}
+                                <div class="row small">
+                                    <time class="col-md-2 text-monospace text-muted" datetime="{{ datevar | date_to_xmlschema }}">{{ datevar | date: '%R %z' | slice: 0, 9 }}</time>
+                                    <strong class="col-md-10 text-success">All systems normal.</strong>
+                                </div>
+                            {%- endif -%}
                         </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for item in datearray %}
-                        {% assign isincident = false %}
-                        <tr>
-                            <td>
-                                <h6>{{ item }}</h6>
-                                {% for post in site.posts %}
-                                    {% assign postdate = post.date | date: '%B %d, %Y' %}
-                                    {% if item == postdate %}
-                                        {% assign isincident = true %}
-                                        <div class="row small">
-                                            <time class="col-md-2 text-monospace text-muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%R %z' | slice: 0, 9 }}</time>
-                                            <strong class="col-md-10{% if post.status %} text-{{ post.status }}{% endif %}">{{ post.content | remove: '<p>' | remove: '</p>' }}</strong>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if isincident == false %}
-                                    <div class="row small">
-                                        <time class="col-md-2 text-monospace text-muted" datetime="{{ item | date_to_xmlschema }}">{{ item | date: '%R %z' | slice: 0, 9 }}</time>
-                                        <strong class="col-md-10 text-success">All systems normal.</strong>
-                                    </div>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    {%- assign daten = daten | minus: 86400 -%}
+                {%- endfor -%}
+            </tbody>
+        </table>
     </div>
 </div>
-{% if site.twitter.widget == true %}
+{%- if site.twitter.widget == true -%}
 <div class="row justify-content-center">
     <div class="col-md-{{ site.rows | default: 8 }}">
-        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="{{ site.twitter.username | prepend: 'https://twitter.com/' | append: '?ref_src=twsrc%5Etfw' }}">Tweets by {{ site.twitter.username }}</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <a class="twitter-timeline" data-height="500" data-link-color="#19CF86" href="{{ site.twitter.username | prepend: 'https://twitter.com/' | append: '?ref_src=twsrc%5Etfw' }}">Tweets by {{ site.twitter }}</a>
     </div>
 </div>
-{% endif %}
+{%- endif -%}
 {% include card_footer.html %}
