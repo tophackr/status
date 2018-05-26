@@ -1,25 +1,24 @@
 
-{% assign dateago1 = 'now' | date: '%s' %}
-{% assign dateago2 = site.posts[0].date | date: '%F' %}
-{% assign dateago3 = dateago2 | date: '%s' %}
-{% assign dateago4 = dateago1 | minus: dateago3 %}
-{% assign dateago5 = dateago4 | divided_by: 86400 %}
-{% capture dateago6 %}
+{%- assign datenow = 'now' | date: '%s' -%}
+{%- assign dateago = site.posts[0].date | date: '%F' -%}
+{%- assign dateago = dateago | date: '%s' -%}
+{%- assign dateago = datenow | minus: dateago -%}
+{%- assign dateago = dateago | divided_by: 86400 -%}
+{%- capture dateago -%}
     Last incident
-    {% case dateago5 %}
-        {% when 0 %}today
-        {% when 1 %}{{ dateago5 }} day ago
-        {% else %}{{ dateago5 }} days ago
-    {% endcase %}
-{% endcapture %}
+    {% case dateago %}
+        {%- when 0 -%}today
+        {%- when 1 -%}{{ dateago }} day ago
+        {%- else -%}{{ dateago }} days ago
+    {%- endcase -%}
+{%- endcapture -%}
 <div class="container">
     <div class="row justify-content-center">
         <nav class="navbar col-md-{{ site.rows | default: 8 }}">
-            <a class="navbar-brand text-dark" href=" {{ '/' | absolute_url }}">{{ site.title }}</a>
+            <a class="navbar-brand text-dark" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
             {% if site.posts[0] %}
-                <br class="d-lg-none d-xl-none">
-                <strong class="text-muted text-uppercase d-lg-none d-xl-none" data-toggle="tooltip" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>" style="cursor: help;">{{ dateago6 }}</strong>
-                <strong class="navbar-text text-muted text-uppercase float-right d-none d-lg-block d-xl-block" data-toggle="tooltip" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>" style="cursor: help;">{{ dateago6 }}</strong>
+                <strong id="last_incident" class="navbar-text text-muted text-uppercase float-left d-lg-none d-xl-none" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
+                <strong id="last_incident" class="navbar-text text-muted text-uppercase float-right d-none d-lg-block d-xl-block" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
             {% endif %}
         </nav>
     </div>
