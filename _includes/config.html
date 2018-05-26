@@ -1,0 +1,21 @@
+
+{% comment %}
+<!--
+#
+# Create valid email url
+#
+-->
+{% endcomment %}
+{%- assign email_subject = site.email.subject | url_encode -%}
+{%- assign email_body = site.email.body | url_encode -%}
+{%- assign email_url = site.email.to | prepend: 'mailto:' | append: '?subject=' | append: email_subject | append: '&body=' | append: email_body -%}
+
+{% comment %}
+<!--
+#
+# Create valid twitter url
+#
+-->
+{% endcomment %}
+{%- assign twitter_body = site.twitter.body | url_encode -%}
+{%- assign twitter_url = site.twitter.username | prepend: '&via=' | prepend: twitter_body | prepend: 'https://twitter.com/intent/tweet?text=' -%}
