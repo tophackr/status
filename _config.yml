@@ -22,4 +22,4 @@ timezone: Europe/Moscow
 encoding: utf-8
 permalink: /incidents/:year-:month-:day/
 # limit_posts: 10
-exclude: [".gitignore", README.md, CONTRIBUTING.md, CHANGELOG.md, Gemfile, Gemfile.lock]
+exclude: [".gitignore", README.md, CONTRIBUTING.md, CHANGELOG.md, LICENSE, Gemfile, Gemfile.lock]
