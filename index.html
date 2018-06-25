@@ -7,7 +7,7 @@ layout: default
         <div class="row justify-content-center">
             <div class="col-md-{{ site.rows | default: 8 }}">
                 <div class="table-responsive">
-                    <table class="table" style="overflow: hidden;">
+                    <table class="table mb-0" style="overflow: hidden;">
                         <thead>
                             <tr>
                                 <td style="border-top: 0px;">
@@ -18,7 +18,7 @@ layout: default
                         <tbody>
                             <tr>
                                 <td class="small text-muted">
-                                    <strong>{{ my_page.content }}</strong>
+                                    <strong>{{ my_page.content | replace: '<p>', '<p class="mb-2">' }}</strong>
                                 </td>
                             </tr>
                         </tbody>
