@@ -12,14 +12,12 @@
         {%- else -%}{{ dateago }} days ago
     {%- endcase -%}
 {%- endcapture -%}
-<div class="container">
-    <div class="row justify-content-center">
-        <nav class="navbar col-md-{{ site.rows | default: 8 }}">
-            <a class="navbar-brand text-dark" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
-            {% if site.posts[0] %}
-                <strong id="last_incident" class="navbar-text text-muted text-uppercase float-left d-lg-none d-xl-none" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
-                <strong id="last_incident" class="navbar-text text-muted text-uppercase float-right d-none d-lg-block d-xl-block" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
-            {% endif %}
-        </nav>
-    </div>
+<div class="row justify-content-center">
+    <nav class="navbar col-md-{{ site.rows | default: 8 }}">
+        <a class="navbar-brand text-dark" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+        {% if site.posts[0] %}
+            <strong id="last_incident" class="navbar-text text-muted text-uppercase float-left d-lg-none d-xl-none" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
+            <strong id="last_incident" class="navbar-text text-muted text-uppercase float-right d-none d-lg-block d-xl-block" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<small>{{ site.posts[0].date | date_to_xmlschema }}</small>">{{ dateago }}</strong>
+        {% endif %}
+    </nav>
 </div>
