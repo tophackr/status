@@ -16,6 +16,7 @@ twitter:
   widget: false
 rows:  # default 8
 yandex_metrika: 49377289
+google_analytics:
 
 # Build settings
 markdown: kramdown
