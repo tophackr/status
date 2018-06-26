@@ -15,6 +15,7 @@ twitter:
   footer_name: Report on Twitter
   widget: false
 rows:  # default 8
+yandex_metrika: 49377289
 
 # Build settings
 markdown: kramdown
