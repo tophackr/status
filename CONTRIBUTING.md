@@ -20,6 +20,8 @@ twitter:
   footer_name: Report on Twitter
   widget: true
 rows: 10 # example, default 8
+yandex_metrika: 00000000 # Your id on metrika.yandex.com
+google_analytics: UA-000000000-0 # Your id on analytics.google.com
 ```
 
 and you need to change `timezone` to your timezone. A list of all available values can be found [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
