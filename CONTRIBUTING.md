@@ -3,7 +3,8 @@
 ## How to modify files to your own status
 
 In config ([_config.yml]) you need to change this line to your own.
-```
+
+```yaml
 title: example status
 description: example description to site
 baseurl: '/status' # if you want to connect your own domain to the status of the quotation marks leave blank or remove this line.
@@ -25,7 +26,8 @@ google_analytics: UA-000000000-0 # Your id on analytics.google.com
 ```
 
 and you need to change `timezone` to your timezone. A list of all available values can be found [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-```
+
+```yaml
 timezone: Europe/Moscow # example
 ```
 
@@ -38,7 +40,7 @@ Posts need to be created in the folder [_posts]
 
 You must also create a [scheduler](https://gitlab.com/tophackr/status/pipeline_schedules), to update the status of the site every day itself without incident.
 
-```
+```yaml
 Description: Update status
 Interval Pattern:
   Custom:
