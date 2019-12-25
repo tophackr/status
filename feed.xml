@@ -9,9 +9,9 @@ layout: null
     {%- for post in site.posts limit:10 -%}
       {%- assign content = post.content | remove: '<p>' | remove: '</p>' | xml_escape -%}
       <item>
+        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <title>{{ post.status | prepend: '[' | append: '] ' | append: content }}</title>
         <description>{{ content }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <link>{{ '' | absolute_url }}</link>
         <guid>{{ post.date | date: '%F' | prepend: '/incidents/#' | absolute_url }}</guid>
       </item>
