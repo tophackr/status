@@ -1,4 +1,16 @@
 # Changelog
+## [1.2.1] - 2019.12.27
+### Changed
+- Fontawesome css to js version
+- Bootstrap js and css version
+- Updated Yandex Metrika type of code
+
+### Fixed
+- Google analytics tag (was not added to the code)
+
+### Removed
+- Unnecessary components
+
 ## [1.2] - 2018.06.27
 ### Added
 - Yandex analytics
@@ -38,7 +50,8 @@
 ## [1.0] - 2018.05.17
 - First release
 
-[1.2]: https://gitlab.com/tophackr/status/tags/v1.2
-[1.1.1]: https://gitlab.com/tophackr/status/tags/v1.1.1
-[1.1]: https://gitlab.com/tophackr/status/tags/v1.1
-[1.0]: https://gitlab.com/tophackr/status/tags/v1.0
+[1.2.1]: https://gitlab.com/tophackr/status/compare/v1.2...v1.2.1
+[1.2]: https://gitlab.com/tophackr/status/compare/v1.1.1...v1.2
+[1.1.1]: https://gitlab.com/tophackr/status/compare/v1.1...v1.1.1
+[1.1]: https://gitlab.com/tophackr/status/compare/v1.0...v1.1
+[1.0]: https://gitlab.com/tophackr/status/compare/c750d0b8...v1.0
