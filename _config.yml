@@ -3,7 +3,7 @@ title: tophackr status
 description: Information on the status of tophackr services.
 url: 'https://status.tophackr.com'
 baseurl: # /status
-repository: 'https://gitlab.com/tophackr/status'
+repository: 'https://github.com/tophackr/status'
 email:
   to: tophackr@icloud.com
   subject: Report

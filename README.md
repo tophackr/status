@@ -9,6 +9,6 @@ You can also make a fork of this project for your own purposes, before that read
 
 Check [repository page][repository] or [status page][status]
 
-[guide]: https://gitlab.com/tophackr/status/-/wikis/home
-[repository]: https://gitlab.com/tophackr/status
+[guide]: https://github.com/tophackr/status/wiki
+[repository]: https://github.com/tophackr/status
 [status]: https://status.tophackr.com
